@@ -86,7 +86,7 @@ async function authenticateRequest(req, res) {
         error: "Unauthorized Access",
       };
     }
-    const decode = jwt.verify(token, process.env.SECRET);
+    const decode = jwt.verify(token, 'MY_SECRET');
     const session = await Session.findOne({ _id: decode.sessionId });
 
     if (!session) {
@@ -126,7 +126,7 @@ const createSession = async (user) => {
 
   const token = jwt.sign(
     { userId: user._id, sessionId: newSession._id },
-    process.env.SECRET
+    'MY_SECRET'
   );
 
   newSession.accessToken = token;
